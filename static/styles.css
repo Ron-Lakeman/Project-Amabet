@@ -1,0 +1,146 @@
+
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+
+  .bg-dark {
+    background-color: midnightblue !important;
+}
+
+.col-sm-10 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+  .row.content {height: 100%}
+  
+  .navbar-dark .navbar-brand {
+    color: rgb(230, 238, 245);
+  }
+
+  .navbar-nav > li > a {
+    color: rgb(230, 238, 245) !important;
+}
+
+    .sidenav {
+    padding-top: 30px;
+    background-color: #f1f1f1;
+    height: 100vh;
+}
+
+
+  .button1 {
+    margin-top: 20px;
+  }
+  
+  /* Set black background color, white text and some padding */
+  footer {
+    background-color: #555;
+    text-align: center;
+    color: white;
+    padding: 15px;
+  }
+  
+  /* On small screens, set height to 'auto' for sidenav and grid */
+  @media screen and (max-width: 767px) {
+    .sidenav {
+      height: auto;
+      padding: 15px;
+    }
+    .row.content {height:auto;} 
+  }
+
+  /* .table {
+    width: 100%
+  } */
+
+  .match-box {
+    width: auto;
+    height: 115px;
+    border: 3px solid midnightblue;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: rgb(230, 238, 245);
+  }
+
+  .competition {
+    width: 200px;
+    height: 22px;;
+    margin-left: 14px;
+    margin-top: 7px;
+    display: flex;
+    align-items: center; /* Vertical centering */
+    justify-content: Left; /* Horizontal centering */
+    border-radius: 5px;
+    
+  }
+
+  .team1 {
+    width: 200px;
+    height: 22px;
+    border: 1px solid midnightblue;
+    margin-left: 10px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center; /* Vertical centering */
+    justify-content: center; /* Horizontal centering */
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+}
+
+
+  .team2 {
+    width: 200px;
+    height: 22px;
+    border: 1px solid midnightblue;
+    margin-left: 10px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+  }
+
+  .time-place {
+    font-size: 10px;
+    margin-left: 10px;
+    margin-top: 8px;
+    width: 70px;
+    float: left;
+  }
+
+  .time-place2 {
+    font-size: 10px;
+    margin-left: 10px;
+    margin-top: 8px;
+    float: left;
+  }
+
+  .odds {
+    width: 40%;
+    height: 55%;
+    margin-right: 10px;
+    margin-top: 30px;
+    border: 1px solid midnightblue;
+    display: flex;
+    border-radius: 5px;
+    float: right;
+    background-color: rgb(255, 255, 255);
+  }
+
+  .odds-inner {
+    flex: 1; 
+    border: 1px solid midnightblue;
+    border-radius: 5px;
+    margin: 5px;
+    background-color: rgb(230, 238, 245);
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+  }
+
+

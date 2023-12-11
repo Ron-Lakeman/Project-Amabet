@@ -1,14 +1,36 @@
 {% extends "layout.html" %}
 
+{% block main %} 
+<div class="col-sm-10 text-left">
+    <!-- <h1>Komende wedstrijden</h1> -->
+    {% if match_info %}
+    <table class="table">
+        
 
+        {% for index, match in match_info.items() %}
+            <div class="match-box">
 
-{% block main %}
-<body>
-    <section>
-        <h2>Index page for Amabet</h2>
-     
-            
-    </section>
+                <div class="odds">
 
-</body>
+                    <button class="odds-inner" type="submit"> {{ match.team1_odds }}</button>
+                    <button class="odds-inner" type="submit">{{ match.draw_odds }}</button>
+                    <button class="odds-inner" type="submit"> {{ match.team2_odds }}</button>
+                </div>
+                
+                <div class="competition">{{ competition }}</div>
+                <div class="team1">{{ match.team1 }}</div>
+                <div class="team2">{{ match.team2 }}</div>
+                <div class="time-place">{{ match.time }}</div>
+                <div class="time-place">{{ match.date }}</div>
+                <div class="time-place2">{{ match.location }}</div>
+                
+            </div>
+        {% endfor %}
+
+    </table>
+    {% else %}
+        <p>Geen resultaten gevonden. Probeer nogmaals met een andere zoekterm.</p>
+    {% endif %}
+
+</div>
 {% endblock %}

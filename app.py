@@ -7,7 +7,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from helpers import login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 from models import *
-
+from fixtures import calculate_odds
 
 app = Flask(__name__)
 
@@ -29,7 +29,23 @@ Session(app)
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
-    return render_template("index.html")
+    if request.method == "POST":
+        competition_name = request.form.get("competition")
+
+        if not competition_name:
+            return render_template("index.html")
+        
+        if competition_name:
+            competition = Competition.query.filter(Competition.name.ilike(f"%{competition_name}%")).first()
+            if competition:
+                live_score_id = competition.live_score_id
+                match_info = calculate_odds(live_score_id)
+                return render_template("index.html", competition=competition.name, match_info=match_info)
+            return render_template("index.html")
+        else:
+           return render_template("index.html")     
+    else: 
+        return render_template("index.html")
 
 @app.route("/matches", methods=["GET"])
 @login_required
@@ -95,7 +111,7 @@ def register():
         password = request.form.get("password")
         confirmed_password = request.form.get("confirmation")
         
-        print(User.query.filter_by(username=username).first())
+        # print(User.query.filter_by(username=username).first())
         if User.query.filter_by(username=username).first():
             return "Apology, 400: username already exists"
         
