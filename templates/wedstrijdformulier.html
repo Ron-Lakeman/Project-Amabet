@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="match-box">
+    <table class="table">   
+        
+        <div name="odds" value= "{{ index }}" >Odds: {{ odds }}</div>
+        <div class="competition">{{  match_info.competition }}</div>
+        <div> {{ winner_string }}</div>
+        <div class="time-place">{{ match_info.time }}</div>
+        <div class="time-place">{{ match_info.date }}</div>
+    </table>
+
+    <div class="mb-3">
+        <div class=ruimte>
+            <form action="/wedstrijdformulier/bet/{{ index }}" method="POST" id="create_bet_form">
+                <input type="hidden" name="match_id" value = "{{ match_info.match_id }}">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="inzet" id="inzet" placeholder="€" type="int"/>
+                <input type="hidden" name="potential_winning" id="potential_winning_input"/>
+                <input type="hidden" name="winner" value="{{ winner }}"/>
+                <input type="hidden" name="odds" value="{{ odds }}"/>
+                
+            </form>
+        </div>
+    </div>
+    <div class="bet">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Plaats uw bet
+        </button>
+    </div>
+</div>
+
+    <div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Bevestiging bet</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="confirmationModal">
+                        Bevestig uw bet
+                        U maakt kans op: <span id="potential_winning">n/a</span>
+                    </div>                
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Annuleer </button>
+                        <button type="button" class="btn btn-primary" id="confirm_bet"> Bevestig </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    const odds = parseFloat("{{ odds }}");
+    console.log(odds)
+    const inzetElement = document.getElementById("inzet");
+    const potentialWinningElement = document.getElementById("potential_winning");
+    const potentialWinningInputElement = document.getElementById("potential_winning_input");
+    inzetElement.addEventListener("keyup", function(event){
+        const newValue = event.target.value;
+        if (newValue != "") {
+            potentialWinningElement.innerHTML = "€" + (newValue * odds);
+            potentialWinningInputElement.value = (newValue * odds);
+        }
+        else {
+            potentialWinningElement.innerHTML = "n/a";
+            potentialWinningInputElement.value = "";
+        }
+    })
+
+    const confirmBetElement = document.getElementById("confirm_bet");
+    confirmBetElement.addEventListener("click", function(event){
+        document.getElementById("create_bet_form").submit()
+    })
+</script>
+
+
+{% endblock %}

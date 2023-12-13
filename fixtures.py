@@ -35,6 +35,7 @@ def get_fixtures(id):
     print(fixtures)
 
     for index, match in enumerate(fixtures):
+        match_id = match['id']
         home_id = match['home_id']
         team1 = match['home_name']
         away_id = match['away_id']
@@ -42,7 +43,8 @@ def get_fixtures(id):
         date = match['date']
         location = match['location']
         time = match['time']
-        match_info[index] = {'home_id': home_id, 'team1': team1, 'away_id': away_id, 'team2': team2, 'date': date, 'location': location, 'time': time}
+        match_id = f"{home_id}-{away_id}-{date}"
+        match_info[index] = {'match_id': match_id, 'home_id': home_id, 'team1': team1, 'away_id': away_id, 'team2': team2, 'date': date, 'location': location, 'time': time}
     
     return(match_info)
         
@@ -59,7 +61,6 @@ def get_fixtures_and_rank(id):
 
             # print(f"ranking_id: ({ranking_data[rank_key]['team_id']}) - fixture_id: ({fixtures_data[match_key]['home_id']})")
             if str(fixtures_data[match_key]['home_id']) == str(ranking_data[rank_key]['team_id']):
-
                 fixtures_data[match_key]['team1_ranking'] = ranking_data[rank_key]['rank']
                 fixtures_data[match_key]['team1_points'] = ranking_data[rank_key]['points']
                 fixtures_data[match_key]['team1_matches'] = ranking_data[rank_key]['matches']
@@ -69,7 +70,7 @@ def get_fixtures_and_rank(id):
                 fixtures_data[match_key]['team2_points'] = ranking_data[rank_key]['points']
                 fixtures_data[match_key]['team2_matches'] = ranking_data[rank_key]['matches']
 
-    # print(fixtures_data)
+    print(fixtures_data)
     return fixtures_data
             
 def calculate_odds(id):
@@ -81,41 +82,54 @@ def calculate_odds(id):
         for match_key, y in fixtures_data.items():
             team1_points = int(fixtures_data[match_key]['team1_points'])
             team2_points = int(fixtures_data[match_key]['team2_points'])
-            # points_difference = int(team1_points) - int(team2_points)
-            # print(points_difference)
-            # exponent = -(beta_0 + beta_1 * points_difference)
-            # probability_team1_win = 1 / (1 + math.exp(exponent))
-            # probability_team2_win = 1 - probability_team1_win
-            # probability_draw = 1 - probability_team1_win
-
+            
             probability_team1_win = team1_points / (team1_points + team2_points)
             probability_team2_win = team2_points / (team1_points + team2_points)
+            
             max_points = int(fixtures_data[rank_key]['team1_matches']) * 3
-            # print(max_points)
             probability_draw = ((max_points - (team1_points - team2_points)) / (max_points*2))
-
-            # print(probability_draw)
-
-            # print(f"The prob of team2 winning are: {probability_team1_win:.2f}")
-            # print(f"The prob of team2 winning are: {probability_team2_win:.2f}")
             
             odds_team1_win = round((probability_team2_win / (1 - probability_team2_win)) + 1, 1)
             odds_team2_win = round(1 / probability_team2_win, 1)
             odds_draw = round((1 / (probability_draw)), 1)
-            # print(odds_draw)
-
+            
             fixtures_data[match_key]['team1_odds'] = odds_team1_win
             fixtures_data[match_key]['team2_odds'] = odds_team2_win
             fixtures_data[match_key]['draw_odds'] = odds_draw
-    
-    print(fixtures_data)
     return fixtures_data
 
 
+def get_results(id):
+    
+    res = requests.get(f"https://livescore-api.com/api-client/scores/history.json?competition_id={id}&key=GNbdgm8Y4WMM0rXE&page=&secret=EmyxlamXomfGzDhfrstIPCGUysGzUDdy")
+    results_data_last_page = res.json()
+
+    last_page = (results_data_last_page['data']['total_pages']) 
+    print(f"last page: {last_page}")
+
+    res2 = requests.get(f"https://livescore-api.com/api-client/scores/history.json?competition_id={id}&key=GNbdgm8Y4WMM0rXE&page=&page={last_page}&secret=EmyxlamXomfGzDhfrstIPCGUysGzUDdy")
+    results_data = res2.json()
+    # print(results_data)
+    results = results_data['data']['match']
+    results_info = {}
+    
+    for index, results in enumerate(results):
+        home_id = results['home_id']
+        team1 = results['home_name']
+        away_id = results['away_id']
+        team2 = results['away_name']
+        date = results['date'] 
+        match_id = f"{home_id}-{away_id}-{date}"
+        # print(match_id)
+        results_info[index] = {'match_id': match_id, 'home_id': home_id, 'team1': team1, 'away_id': away_id, 'team2': team2, 'date': date, 'location': location, 'time': time}
+    # print(results_info)
+
 if __name__ == "__main__":
     id = 196
-    # get_fixtures_and_rank(id)
-    calculate_odds(id)
+
+
+   
+    get_results(id)
 
 
 

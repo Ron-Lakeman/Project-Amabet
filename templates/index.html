@@ -11,10 +11,11 @@
             <div class="match-box">
 
                 <div class="odds">
-
-                    <button class="odds-inner" type="submit"> {{ match.team1_odds }}</button>
-                    <button class="odds-inner" type="submit">{{ match.draw_odds }}</button>
-                    <button class="odds-inner" type="submit"> {{ match.team2_odds }}</button>
+                    <form action="/wedstrijdformulier/{{ index }}" method="POST">
+                        <button class="odds-inner" type="submit" name="team1" value= "{{ match.team1_odds }}" >{{ match.team1_odds }}</button>
+                        <button class="odds-inner" type="submit" name="draw" value= "{{ match.draw_odds }}" >{{ match.draw_odds }}</button>
+                        <button class="odds-inner" type="submit" name="team2" value= "{{ match.team2_odds }}" >{{ match.team2_odds }}</button>
+                    </form>
                 </div>
                 
                 <div class="competition">{{ competition }}</div>

@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session, render_template, redirect, request
+from flask import Flask, session, render_template, redirect, request, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -25,11 +25,21 @@ app.config["SESSION_TYPE"] = "filesystem"
 
 Session(app)
 
+match_info = {}
 
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
-    if request.method == "POST":
+    user_id = session["user_id"]
+    user = User.query.filter_by(id=user_id).first()
+    user_balance = int(user.balance)
+    if request.method == "POST":    
+        user_id = session["user_id"]
+        user = User.query.filter_by(id=user_id).first()
+        user_balance = int(user.balance)
+        print(f"user balance in / = {user_balance}")
+        render_template("layout.html", user_balance=user_balance)
+        
         competition_name = request.form.get("competition")
 
         if not competition_name:
@@ -39,13 +49,72 @@ def index():
             competition = Competition.query.filter(Competition.name.ilike(f"%{competition_name}%")).first()
             if competition:
                 live_score_id = competition.live_score_id
+                global match_info
                 match_info = calculate_odds(live_score_id)
-                return render_template("index.html", competition=competition.name, match_info=match_info)
+                return render_template("index.html", competition=competition.name, match_info=match_info, user_balance=user_balance)
+            
             return render_template("index.html")
         else:
            return render_template("index.html")     
-    else: 
-        return render_template("index.html")
+    else:   
+        return render_template("index.html", user_balance=user_balance)
+    
+@app.route("/wedstrijdformulier/<int:index>", methods=["GET", "POST"])
+@login_required
+def wedstrijdformulier(index):
+    if request.method == "POST":
+        user_id = session["user_id"]
+        user = User.query.filter_by(id=user_id).first()
+        user_balance = int(user.balance)
+        render_template("layout.html", user_balance=user_balance)
+
+        if request.form.get('team1'):
+            odds = request.form.get('team1')
+            winner_string = f"Winst voor {match_info[index]['team1']}"
+            winner = '1'
+        elif request.form.get('draw'):
+            odds = request.form.get('draw')
+            winner_string = "Gelijkspel"
+            winner = 'X'
+        elif request.form.get('team2'):
+            odds = request.form.get('team2')
+            winner_string = f"Winst voor {match_info[index]['team2']}"
+            winner = '2'
+        else:
+            odds = None
+            winner_string = None
+            winner = None
+        return render_template("wedstrijdformulier.html", index=index, match_info=match_info[index], odds=odds, winner_string=winner_string, winner=winner)
+
+@app.route("/wedstrijdformulier/bet/<int:index>", methods=["GET", "POST"])
+@login_required
+def wedstrijdformulier2(index):
+    if request.method == "POST":
+        match_id = request.form.get('match_id')
+        print(match_id)
+        winner = request.form.get('winner')
+        print(winner)
+        odds = request.form.get('odds')
+        print(odds)
+        stake = request.form.get('inzet')
+        print(stake)
+        potential_winning = request.form.get('potential_winning')
+        print(f"potential winning = {potential_winning}")
+        user_id = session["user_id"]
+        print(user_id)
+
+        bet = Bet(match_id = match_id, winner=winner, odds=odds, stake=stake, possible_payout=potential_winning, user_id=user_id)
+        db.session.add(bet)
+        db.session.commit()
+
+        user = User.query.filter_by(id=user_id).first()
+        user.balance = int(user.balance) - int(stake)
+
+        db.session.commit()
+        print(user.balance)
+        return redirect("/")
+
+    
 
 @app.route("/matches", methods=["GET"])
 @login_required
@@ -126,7 +195,6 @@ def register():
         
         hash = generate_password_hash(password)
         
-        # db.execute("INSERT INTO users (username, hash) VALUES (?,?)", request.form.get("username"), hash)
 
         user = User(username=username, hash=hash)
         db.session.add(user)
