@@ -20,7 +20,9 @@ class Competition(db.Model):
 class Bet(db.Model):
     __tablename__ = "bet"
     id = db.Column(db.Integer, primary_key=True)
+    competition_id = db.Column(db.Integer)
     match_id = db.Column(db.String(255))
+    
     winner = db.Column(db.String(255))
     odds = db.Column(db.Float)
     stake = db.Column(db.Float)

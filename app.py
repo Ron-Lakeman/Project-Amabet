@@ -7,7 +7,8 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from helpers import login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 from models import *
-from fixtures import calculate_odds
+from fixtures import calculate_odds, get_results
+from test import results_var
 
 app = Flask(__name__)
 
@@ -32,14 +33,42 @@ match_info = {}
 def index():
     user_id = session["user_id"]
     user = User.query.filter_by(id=user_id).first()
+    db.session.commit()
     user_balance = int(user.balance)
-    if request.method == "POST":    
-        user_id = session["user_id"]
-        user = User.query.filter_by(id=user_id).first()
-        user_balance = int(user.balance)
-        print(f"user balance in / = {user_balance}")
-        render_template("layout.html", user_balance=user_balance)
-        
+    # user_balance = 10000
+    render_template("layout.html", user_balance=user_balance)
+
+    competition_id_with_bet = []
+    bets = Bet.query.filter_by(user_id=1).all()
+    for bet in bets:
+        competition_id_with_bet.append(bet.competition_id)
+    results = get_results(competition_id_with_bet)
+
+    for bet in bets:
+        # print(f"ID: {bet.id}, Competition ID: {bet.competition_id}, Match ID: {bet.match_id}, Winner: {bet.winner}, Odds: {bet.odds}, Stake: {bet.stake}, Possible Payout: {bet.possible_payout}, User ID: {bet.user_id}")
+        if bet.match_id in results:
+
+            if bet.winner == results[bet.match_id]['outcome']:
+                print('bet gewonnen')
+                user_balance = user_balance + bet.possible_payout
+                print(user_balance)
+                Bet.query.filter_by(match_id=bet.match_id, user_id=1).delete()
+                db.session.commit()
+                
+                render_template("layout.html", user_balance=user_balance)
+            else: 
+                print('bet_verloren')
+                Bet.query.filter_by(match_id=bet.match_id, user_id=1).delete()
+                db.session.commit()
+        else:
+            print('niet gevonden')
+            print(user_balance)
+    print(f"user_balance after loop {user_balance}")
+
+    global live_score_id
+    global match_info
+
+    if request.method == "POST":          
         competition_name = request.form.get("competition")
 
         if not competition_name:
@@ -48,26 +77,28 @@ def index():
         if competition_name:
             competition = Competition.query.filter(Competition.name.ilike(f"%{competition_name}%")).first()
             if competition:
+
                 live_score_id = competition.live_score_id
-                global match_info
+
                 match_info = calculate_odds(live_score_id)
                 return render_template("index.html", competition=competition.name, match_info=match_info, user_balance=user_balance)
             
-            return render_template("index.html")
+            return render_template("index.html", user_balance=user_balance)
         else:
-           return render_template("index.html")     
-    else:   
-        return render_template("index.html", user_balance=user_balance)
+           return render_template("index.html", user_balance=user_balance)     
+    else:
+        live_score_id = 196
+        match_info = calculate_odds(live_score_id)
+        return render_template("index.html", competition='Eredivisie', match_info=match_info, user_balance=user_balance)
+
     
 @app.route("/wedstrijdformulier/<int:index>", methods=["GET", "POST"])
 @login_required
 def wedstrijdformulier(index):
+    user_id = session["user_id"]
+    user = User.query.filter_by(id=user_id).first()
+    user_balance = int(user.balance)
     if request.method == "POST":
-        user_id = session["user_id"]
-        user = User.query.filter_by(id=user_id).first()
-        user_balance = int(user.balance)
-        render_template("layout.html", user_balance=user_balance)
-
         if request.form.get('team1'):
             odds = request.form.get('team1')
             winner_string = f"Winst voor {match_info[index]['team1']}"
@@ -84,37 +115,30 @@ def wedstrijdformulier(index):
             odds = None
             winner_string = None
             winner = None
-        return render_template("wedstrijdformulier.html", index=index, match_info=match_info[index], odds=odds, winner_string=winner_string, winner=winner)
-
+        return render_template("wedstrijdformulier.html", index=index, match_info=match_info[index], odds=odds, winner_string=winner_string, winner=winner, user_balance = user_balance)
+    
 @app.route("/wedstrijdformulier/bet/<int:index>", methods=["GET", "POST"])
 @login_required
 def wedstrijdformulier2(index):
     if request.method == "POST":
         match_id = request.form.get('match_id')
-        print(match_id)
         winner = request.form.get('winner')
         print(winner)
+        team1 = request.form.get('team1')
+        print(team1)
         odds = request.form.get('odds')
-        print(odds)
         stake = request.form.get('inzet')
-        print(stake)
         potential_winning = request.form.get('potential_winning')
-        print(f"potential winning = {potential_winning}")
         user_id = session["user_id"]
-        print(user_id)
-
-        bet = Bet(match_id = match_id, winner=winner, odds=odds, stake=stake, possible_payout=potential_winning, user_id=user_id)
+        bet = Bet(match_id = match_id, competition_id=live_score_id, winner=winner, odds=odds, stake=stake, possible_payout=potential_winning, user_id=user_id)
         db.session.add(bet)
         db.session.commit()
 
         user = User.query.filter_by(id=user_id).first()
         user.balance = int(user.balance) - int(stake)
-
         db.session.commit()
-        print(user.balance)
         return redirect("/")
 
-    
 
 @app.route("/matches", methods=["GET"])
 @login_required
@@ -124,7 +148,26 @@ def matches():
 @app.route("/bets", methods=["GET"])
 @login_required
 def bets():
-    return render_template("bets.html")
+    user_id = session["user_id"]
+    user = User.query.filter_by(id=user_id).first()
+    db.session.commit()
+    user_balance = int(user.balance)
+    
+    bets_dict = {}
+    bets = Bet.query.filter_by(user_id=1).all()
+
+    for index, bet in enumerate(bets):
+        id = bet.id
+        competition_id = bet.competition_id
+        match_id = bet.match_id
+        winner = bet.winner
+        odds = bet.odds
+        stake = bet.stake
+        possible_payout = bet.possible_payout
+        bets_dict[index] = {'competition_id': competition_id, 'match_id': match_id, 'winner': winner, 'odds': odds, 'stake': stake, 'possible_payout': possible_payout} 
+    print(bets_dict)
+
+    return render_template("bets.html", user_balance=user_balance, bets=bets_dict)
 
 @app.route("/ranking", methods=["GET"])
 @login_required

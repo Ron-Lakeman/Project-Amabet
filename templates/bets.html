@@ -4,10 +4,25 @@
 
 {% block main %}
 <body>
-    <section>
-        <h2>Displays all bets</h2>
-        <p>bets</p>
-    </section>
+    <div class="col-sm-10 text-left">
+        {% if bets %}
+        <table class="table">
+            
+    
+            {% for index, bet in bets.items() %}
+                <div class="match-box">
+                    <div class="odds-inner" type="submit" name="team1">{{ bet.odds }} </div>
+                    <div class="odds-inner" type="submit" name="draw">{{ bet.stake }}</div>
+                    <div class="odds-inner" type="submit" name="draw">{{ bet.possible_payout }}</div>                    
+                </div>
+            {% endfor %}
+    
+        </table>
+        {% else %}
+            <p>Geen resultaten gevonden. Plaats een bet!.</p>
+        {% endif %}
+    
+    </div>
 
 </body>
 {% endblock %}
