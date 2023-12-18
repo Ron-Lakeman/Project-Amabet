@@ -5,22 +5,22 @@ Nadat er door de gebruiker een account wordt aangemaakt, zal deze de mogelijkhei
 
 ## Webpages
 Log in page van AMABET
-<img src="image.png" alt="Log in page AMABET" style="width: 50%;">
+<img src="images/image.png" alt="Log in page AMABET" style="width: 50%;">
 
 Home page amabet
-<img src="image-1.png" alt="Home page AMABET" style="width: 50%;">
+<img src="images/image-1.png" alt="Home page AMABET" style="width: 50%;">
 
 Wedstrijdformulier
-<img src="image-2.png" alt="Home page AMABET" style="width: 50%;">
+<img src="images/image-2.png" alt="Home page AMABET" style="width: 50%;">
 
 Mijn bets page
-<img src="image-3.png" alt="Home page AMABET" style="width: 50%;">
+<img src="images/image-3.png" alt="Home page AMABET" style="width: 50%;">
 
-Ranking page -->
-<!-- <img src="image-1.png" alt="Home page AMABET" style="width: 50%;"> -->
+Ranking page
+<img src="images/image-5.png" alt="Home page AMABET" style="width: 50%;">
 
 History page
-<img src="image-4.png" alt="Home page AMABET" style="width: 50%;">
+<img src="images/image-4.png" alt="Home page AMABET" style="width: 50%;">
 
 ## Aan de slag (Getting Started)
 
