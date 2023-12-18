@@ -4,23 +4,23 @@ Reclames van betting websites zijn tegenwoordig niet meer weg te denken van de T
 Nadat er door de gebruiker een account wordt aangemaakt, zal deze de mogelijkheid krijgen om te kiezen uit verschillende competities over de hele wereld (zelfs in sommige gevallen op het tweede niveau). Vervolgens worden de aankomende wedstrijden getoont en krijgt de gebruiker de mogelijkheid om in te zetten op een van de twee spelende teams, of een gelijkspel. Nadat er een bedrag wordt ingevoerd en de bet wordt bevestigd, wordt deze opgeslagen in 'mijn bets', waar alle bets overzichtelijk worden weergegeven. In de uren nadat de voetbalwedstrijd is gespeeld, wordt bij inloggen van de wedsite het gewonnen geld uitgekeerd, en wordt de bet verplaatst naar de history. Hier vind de gebruiker een overzicht van alle geplaatste bets, en kan eenvoudig worden teruggevonden of hij/zij de bet heeft gewonnen of verloren, samen met andere informatie over de desbetreffende bet. Ten slotte kan de gebruiker een ranking vinden van alle accounts op basis van de belance. Wanneer een gebruiker veel goed gokt, zal deze hoog in de ranking staan ten opzichte van gebruikers met minder goed geplaatse bets.
 
 ## Webpages
-<img src="image.png" alt="Log in page AMABET" style="width: 50%;">
 Log in page van AMABET
+<img src="image.png" alt="Log in page AMABET" style="width: 50%;">
 
-<img src="image-1.png" alt="Home page AMABET" style="width: 50%;">
 Home page amabet
+<img src="image-1.png" alt="Home page AMABET" style="width: 50%;">
 
-<img src="image-2.png" alt="Home page AMABET" style="width: 50%;">
 Wedstrijdformulier
+<img src="image-2.png" alt="Home page AMABET" style="width: 50%;">
 
-<img src="image-3.png" alt="Home page AMABET" style="width: 50%;">
 Mijn bets page
+<img src="image-3.png" alt="Home page AMABET" style="width: 50%;">
 
-<!-- <img src="image-1.png" alt="Home page AMABET" style="width: 50%;"> 
 Ranking page -->
+<!-- <img src="image-1.png" alt="Home page AMABET" style="width: 50%;"> -->
 
-<img src="image-4.png" alt="Home page AMABET" style="width: 50%;">
 History page
+<img src="image-4.png" alt="Home page AMABET" style="width: 50%;">
 
 ## Aan de slag (Getting Started)
 
@@ -66,12 +66,11 @@ Wanneer dit is gedaan kan de webpage op de volgende manier worden gerunt:
 flask run --debug
 ```
 
-## Auteurs (Authors)
 
+## Auteurs (Authors)
 Ron Lakeman
 
 ## Dankwoord (Acknowledgments)
-
 * StackOverflow
 * Assitenten minor programmeren van de UvA
 * [Skillthrive](https://www.youtube.com/watch?v=PwWHL3RyQgk&t=670sl) - Voor de code voor het stylen van de nav-bar.

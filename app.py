@@ -10,14 +10,12 @@ from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
-# Check for environment variable
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 db.init_app(app)
 
-# Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 
@@ -26,29 +24,39 @@ Session(app)
 match_info = {}
 history_list = []
 
-
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
+    # Get username and user balance for navbar
     user_id = session["user_id"]
     user = User.query.filter_by(id=user_id).first()
     db.session.commit()
     user_balance = int(user.balance)
     render_template("layout.html", user_balance=user_balance)
+    
+    # Query all current bets
     bets = Bet.query.filter_by(user_id=user.id).all()
+    
+    # Check current time
     current_date_time = datetime.now()
+    
     for bet in bets:
+        # Compare current time to the time the match of corresponding bet is finished
         bet_time_composed_str = (f"{bet.date} {bet.time}")
         bet_time_composed_time = datetime.strptime(bet_time_composed_str, "%Y-%m-%d %H:%M:%S")
         bet_time_composed_finished = bet_time_composed_time + timedelta(minutes=240)
         
+        # Request live-data if match has finished within 4 hours of current time
         if bet_time_composed_finished > current_date_time > bet_time_composed_time:
-            print("bet zou in live moeten zijn")
             results = get_live(bet.competition_id)
+        # Request history data if match has finished more than 4 hours ago
         else:
             print("bet zou in history moeten staan")
             results = get_results(bet.competition_id)
+
+        # Check whether match can be found in the data requested by API
         if bet.match_id in results:
+            # If bet is won, create Bet_history object where status is won and balance change is positive
             if bet.winner == results[bet.match_id]['outcome']:
                 user.balance += bet.possible_payout
                 competition_id= bet.competition_id
@@ -68,6 +76,7 @@ def index():
                 history = Bet_history(match_id = match_id, status=status, competition_id=competition_id, predicted_winner=predicted_winner, predicted_winner_team=predicted_winner_team, odds=odds, stake=stake, balance_change=balance_change, user_id=user_id, team1=team1, date=date, team2=team2, time=time)
                 db.session.add(history)
                 db.session.commit()
+            # If bet is lost, create Bet_history object where status is lost and balance change is unchanged
             else:
                 competition_id= bet.competition_id
                 match_id= bet.match_id
@@ -86,30 +95,36 @@ def index():
                 history = Bet_history(match_id = match_id, status=status, competition_id=competition_id, predicted_winner=predicted_winner, actual_winner=actual_winner, predicted_winner_team=predicted_winner_team, odds=odds, stake=stake, balance_change=balance_change, user_id=user_id, team1=team1, date=date, team2=team2, time=time)
                 db.session.add(history)
                 db.session.commit()
+            # Delete bet object
             db.session.delete(bet)
             db.session.commit()
         else:
-            print('niet gevonden')
+            pass
     else:
-        print("Geen resultaten opgehaald")
+        pass
     
+    # Create global variable for competition id and dictionary for competition data
     global live_score_id
     global match_info
 
-    if request.method == "POST":          
+    if request.method == "POST":
+        # Find competition         
         competition_name = request.form.get("competition")
         if not competition_name:
             return render_template("index.html")
         if competition_name:
             competition = Competition.query.filter(Competition.name.ilike(f"%{competition_name}%")).first()
             if competition:
+                # Convert competition name to competition id
                 live_score_id = competition.live_score_id
+                # request data based on competition id
                 match_info = calculate_odds(live_score_id)
                 return render_template("index.html", competition=competition.name, match_info=match_info, username=user.username, user_balance=user_balance)
             return render_template("index.html", user_balance=user_balance)
         else:
            return render_template("index.html", user_balance=user_balance)     
     else:
+        # Matches from dutch footbal competition are shown by default
         live_score_id = 196
         match_info = calculate_odds(live_score_id)
         return render_template("index.html", competition='Eredivisie', match_info=match_info, username=user.username, user_balance=user_balance)
@@ -118,9 +133,12 @@ def index():
 @app.route("/wedstrijdformulier/<int:index>", methods=["GET", "POST"])
 @login_required
 def wedstrijdformulier(index):
+    # Get username and user balance for navbar
     user_id = session["user_id"]
     user = User.query.filter_by(id=user_id).first()
     user_balance = int(user.balance)
+
+    # Set variables based on the button that was clicked
     if request.method == "POST":
         if request.form.get('team1'):
             odds = request.form.get('team1')
@@ -219,11 +237,13 @@ def ranking():
 
     all_users = User.query.order_by(desc(User.balance)).all()
     user_dict = {}
+    rank = 1
     for index, user in enumerate(all_users):
+        rank = rank
         username = user.username
         user_balance_dict = user.balance
-        print(user_balance_dict)
-        user_dict[index] = {'username': username, 'user_balance': user_balance_dict}
+        user_dict[index] = {'rank': rank, 'username': username, 'user_balance': user_balance_dict}
+        rank += 1
     user = User.query.filter_by(id=user_id).first()
     return render_template("ranking.html", username=user.username, user_balance=user_balance, users=user_dict)
 

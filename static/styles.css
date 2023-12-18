@@ -412,7 +412,7 @@ footer {
   background-image: url('https://sassets.knvb.nl/sites/knvb.nl/files/styles/ls-1366x768/public/field/image/210302PL24988.jpg?itok=XyqEXBpe');
   background-size: cover; 
   background-position: center center;
-  height: 402px;
+  height: 403px;
   }
 
   .content {
@@ -420,4 +420,61 @@ footer {
     padding-top: 20%;
     text-align: center;
     justify-content: center;
+  }
+
+  .footer {
+  text-align: center;
+  font-family: "Montsterrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  }
+
+  .ranking-box {
+  height: 60px;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;  
+  background-color: rgba(90, 150, 185, 0.2);
+  font-family: "Montsterrat", sans-serif;
+  font-weight: 500;
+  color: #24252A;
+  text-decoration: none;
+  display: flex;
+  }
+
+  .ranking-username {
+  width: 200px;
+  margin-left: 50px;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  background: transparent;
+  font-family: "Montsterrat", sans-serif;
+  font-weight: 500;
+  color: #24252A;
+  text-decoration: none;
+  }
+
+  .ranking-balance {
+    text-align: right;
+    margin: 10px;
+    padding-right: 40px;
+    width: 60%;
+    flex: 1;
+    border-radius: 5px;
+    background: transparent;
+  }
+
+  .rank {
+  width: 40px;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  border-radius: 25px;
+  background-color: orange;
+  font-family: "Montsterrat", sans-serif;
+  font-weight: 500;
+  color: #24252A;
+  text-decoration: none;
   }

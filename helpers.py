@@ -29,6 +29,7 @@ def get_ranking(id):
     res = requests.get(f" https://livescore-api.com/api-client/leagues/table.json?competition_id={id}&key=GNbdgm8Y4WMM0rXE&secret=EmyxlamXomfGzDhfrstIPCGUysGzUDdy")
     ranking_data = res.json()
     ranking = ranking_data['data']['table']
+    
     table_info = {}
 
     for index, table in enumerate(ranking):
@@ -150,5 +151,5 @@ def get_live(id):
     return(live_info)
            
 if __name__ == "__main__":
-    get_live(196)
+    pass
     

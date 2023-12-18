@@ -8,11 +8,11 @@
         {% if users %}
         <table class="table">
             {% for index, user in users.items() %}
-            <div class="match-box">
-                <div class="odds">
-                    <div class="odds-inner" type="submit" name="balance">Balance: {{ user.user_balance }}</div>
-                </div>
-                <div class="team1" name="username"> {{ user.username }}</div>           
+            <div class="ranking-box">
+                <div class="rank" name="rank"> {{ user.rank }}.</div>
+                <div class="ranking-username" name="username"> {{ user.username }}</div>
+                <div class="ranking-balance" type="submit" name="balance">Balance: €{{ user.user_balance }}</div>
+                           
             </div>
             {% endfor %}
         </table>
