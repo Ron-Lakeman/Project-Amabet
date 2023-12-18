@@ -5,18 +5,23 @@ Nadat er door de gebruiker een account wordt aangemaakt, zal deze de mogelijkhei
 
 ## Webpages
 Log in page van AMABET
+
 <img src="images/image.png" alt="Log in page AMABET" style="width: 50%;">
 
 Home page amabet
+
 <img src="images/image-1.png" alt="Home page AMABET" style="width: 50%;">
 
 Wedstrijdformulier
+
 <img src="images/image-2.png" alt="Home page AMABET" style="width: 50%;">
 
 Mijn bets page
+
 <img src="images/image-3.png" alt="Home page AMABET" style="width: 50%;">
 
 Ranking page
+
 <img src="images/image-5.png" alt="Home page AMABET" style="width: 50%;">
 
 History page
@@ -77,5 +82,6 @@ Ron Lakeman
 * [GreatStack](https://www.youtube.com/watch?v=9hnJsNIBq1g&t=578s) - Voor de code voor het stylen van de searcg-bar.
 * [Amabet.bet](https://www.amabet.bet/home?sport=Soccer&live=Tennis) - Voor overname van het logo
 * [KNVB](https://www.knvb.nl/nieuws/themas/veiligheid/68237/topoverleg-over-aanpak-gastvrij-en-veilig-voetbal) - voor de achtergrond van de login & register pagina.
+* [Maarten-vd-Sande](https://github.com/Maarten-vd-Sande/voorbeeldRepo) - voor een voorbeeld van een juiste repository
 
 
