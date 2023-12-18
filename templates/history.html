@@ -4,10 +4,32 @@
 
 {% block main %}
 <body>
-    <section>
-        <h2>Displays betting history</h2>
-        <p>history</p>
-    </section>
-
+    <div class="col-sm-10 text-left">
+        {% if bet_history %}
+        <table class="table">
+            {% for index, bet in bet_history.items() %}
+            <div class="all-boxes">
+                <div class="stats">
+                    <div class="placed_bet_odd" name="odds">Voorspelde team: {{ bet.predicted_winner_team }} </div>
+                    <div class="placed_bet_odd" name="odds"> Voorspelling: {{ bet.predicted_winner }} </div>
+                    <div class="placed_bet_odd" name="odds"> Uitkomst: {{ bet.actual_winner }} </div>
+                    <div class="placed_bet_odd" name="odds">Status: {{ bet.status }} </div>
+                    <div class="placed_bet_odd" name="odds">Odds: {{ bet.odds }} </div>
+                    <div class="placed_bet_odd" name="stake">Jouw inzet: {{ bet.stake }}</div>
+                    <div class="placed_bet_odd" name="possible_payout">Totaal: {{ bet.balance_change }}</div>
+                </div>
+                <div class="competition">{{ bet.competition}}</div>
+                <div class="team1">{{ bet.team1 }}</div>
+                <div class="team2">{{ bet.team2 }}</div>
+                <div class="time-place">{{ bet.time }}</div>
+                <div class="time-place">{{ bet.date }}</div>
+                <div class="time-place2">{{ bet.location }}</div>               
+            </div>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>Nog geen bets geplaatst!</p>
+        {% endif %}
+    </div>
 </body>
 {% endblock %}

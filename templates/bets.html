@@ -1,28 +1,30 @@
 {% extends "layout.html" %}
 
-
-
 {% block main %}
 <body>
     <div class="col-sm-10 text-left">
         {% if bets %}
         <table class="table">
-            
-    
             {% for index, bet in bets.items() %}
-                <div class="match-box">
-                    <div class="odds-inner" type="submit" name="team1">{{ bet.odds }} </div>
-                    <div class="odds-inner" type="submit" name="draw">{{ bet.stake }}</div>
-                    <div class="odds-inner" type="submit" name="draw">{{ bet.possible_payout }}</div>                    
+            <div class="all-boxes">
+                <div class="stats">
+                    <div class="predicted_winner" type="submit" name="odds">Jouw voorspelling: {{ bet.winner_team }} </div>
+                    <div class="placed_bet_odd" type="submit" name="odds">Odds: {{ bet.odds }} </div>
+                    <div class="stake" type="submit" name="stake">Jouw inzet: €{{ bet.stake }}</div>
+                    <div class="payout" type="submit" name="possible_payout">Mogelijke uitbetaling: €{{ bet.possible_payout }}</div>
                 </div>
+                <div class="competition">{{ bet.competition }}</div>
+                <div class="team1">{{ bet.team1 }}</div>
+                <div class="team2">{{ bet.team2 }}</div>
+                <div class="time-place">{{ bet.time }}</div>
+                <div class="time-place">{{ bet.date }}</div>
+                <div class="time-place2">{{ bet.location }}</div>               
+            </div>
             {% endfor %}
-    
         </table>
         {% else %}
             <p>Geen resultaten gevonden. Plaats een bet!.</p>
         {% endif %}
-    
     </div>
-
 </body>
 {% endblock %}

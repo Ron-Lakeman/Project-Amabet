@@ -4,10 +4,21 @@
 
 {% block main %}
 <body>
-    <section>
-        <h2>Displays ranking</h2>
-        <p>rank</p>
-    </section>
-
+    <div class="col-sm-10 text-left">
+        {% if users %}
+        <table class="table">
+            {% for index, user in users.items() %}
+            <div class="match-box">
+                <div class="odds">
+                    <div class="odds-inner" type="submit" name="balance">Balance: {{ user.user_balance }}</div>
+                </div>
+                <div class="team1" name="username"> {{ user.username }}</div>           
+            </div>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>Geen resultaten gevonden.!.</p>
+        {% endif %}
+    </div>
 </body>
 {% endblock %}

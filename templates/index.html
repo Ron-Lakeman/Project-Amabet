@@ -1,19 +1,30 @@
 {% extends "layout.html" %}
 
 {% block main %} 
-<div class="col-sm-10 text-left">
-    <!-- <h1>Komende wedstrijden</h1> -->
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert warning" {{ category }}>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     {% if match_info %}
     <table class="table">
         
 
         {% for index, match in match_info.items() %}
-            <div class="match-box">
-
+            <div class="all-boxes">
                 <div class="odds">
                     <form action="/wedstrijdformulier/{{ index }}" method="POST">
+                        <div class="odd1">1</div>
                         <button class="odds-inner" type="submit" name="team1" value= "{{ match.team1_odds }}" >{{ match.team1_odds }}</button>
+                        <div class="odd-draw">X</div>
                         <button class="odds-inner" type="submit" name="draw" value= "{{ match.draw_odds }}" >{{ match.draw_odds }}</button>
+                        <div class="odd3">2</div>
                         <button class="odds-inner" type="submit" name="team2" value= "{{ match.team2_odds }}" >{{ match.team2_odds }}</button>
                     </form>
                 </div>
@@ -24,7 +35,6 @@
                 <div class="time-place">{{ match.time }}</div>
                 <div class="time-place">{{ match.date }}</div>
                 <div class="time-place2">{{ match.location }}</div>
-                
             </div>
         {% endfor %}
 

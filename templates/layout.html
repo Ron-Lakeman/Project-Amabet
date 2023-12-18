@@ -5,56 +5,50 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, width=device-width">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/static/styles.css">
-    <title>Amabet: your betting webpage!</title>
+    <title>Amabet: jouw betting website!</title>
+    <link rel="icon" href="https://d1s3ak279u1qfe.cloudfront.net/domains/amabet/img/logo.png" type="image/png">
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">Amabet: your betting website!</a>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="/matches">Wedstrijden</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/bets">Mijn Bets</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/ranking">Ranglijst</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/history">History</a></li>
-                        <li class="nav-item"><a class="nav_link">Balance: {{ user_balance }}</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li ><a class="white" href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>        
+        <a class=logo href="/"><img src="https://d1s3ak279u1qfe.cloudfront.net/domains/amabet/img/logo.png" alt="amabet logo" width="70"/> </a>
+        <nav>
+            <ul class = nav__links>
+                <li class="balance"> Username: {{ username }} - Balance: €{{ user_balance }}</li>
+                <li><a href="/matches">Wedstrijden</a></li>
+                <li><a href="/bets">Mijn Bets</a></li>
+                <li><a href="/ranking">Ranglijst</a></li>
+                <li><a href="/history">History</a></li>
+                
+            </ul>
+        </nav>
+        <a class="button" href="/logout">Log out</a>     
     </header>
-    
 
-
-    <div class="container-fluid text-center">    
-        <div class="row content">
-            <div class="col-sm-2 sidenav">
-                <form action="/" method="POST">
-                    <div>
-                        <input autocomplete="on" name="competition" placeholder="Vind competitie" type="text">
-                    </div>
-                    <button class="button1" type="submit">Zoeken</button>
+    <div class="middle">
+        
+        <div class="flexbox-item flexbox-item1">
+            <div>
+                <form class="search-bar" action="/" method="POST">
+                    <input autocomplete="on" name="competition" placeholder="Vind competitie" type="text">
+                    <button type="submit"><img src="https://cdn3.iconfinder.com/data/icons/feather-5/24/search-512.png" width="16px" alt="search-icon"></button>
                 </form>
             </div>
-            {% block main %}{% endblock %}
+        </div>
+
+        <div class="flexbox-item flexbox-item2">
+            {% block main %}
+            {% endblock %}
         </div>
     </div>
-    
+
+
+
 
     <footer>
         Data provided by <a href="https://live-score-api.com/">live-score.com</a>
     </footer>
 
 </body>
-
 </html>

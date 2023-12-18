@@ -1,152 +1,422 @@
 
-/* Remove the navbar's default margin-bottom and rounded borders */ 
-.navbar {
-    margin-bottom: 0;
-    border-radius: 0;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
-  .bg-dark {
-    background-color: midnightblue !important;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.col-sm-10 {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+li, a, button {
+  font-family: "Montsterrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #edf0f1;
+  text-decoration: none;
 }
 
-  .row.content {height: 100%}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  background-color: #24252A;
+}
+
+.logo {
+  cursor: pointer;
+  margin-right: auto;
+}
+
+.balance {
+  margin-right: 100px;
+  padding: 9px 25px;
+  background-color: rgba(0, 136, 169, 1);
+  border: none;
+  border-radius: 50px;
+  transition: all 0.3s ease 0s;
+}
+
+.balance:hover {
+  background-color: rgba(0, 136, 169, 0.8);
+  color: white;
+}
+
+.nav__links {
+  list-style: none;
+}
+
+.nav__links li {
+  display: inline-block;
+  padding: 0px 20px;
+}
+
+.nav__links li a {
+  transition: all 0.3s ease 0s;
+}
+
+.nav__links li a:hover {
+  color: #0088a9; 
+}
+
+.button {
+  margin-left: 20px;
+  padding: 9px 25px;
+  background-color: rgba(0, 136, 169, 1);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+.button:hover {
+  background-color: rgba(0, 136, 169, 0.8);
+}
+
+.middle {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  min-height: 100vh;
+  padding: 0.5%;
+  background-color: white;
+  background-position: center;
+  background-size: cover;
+}
+
+footer {
+  background-color: #555;
+  text-align: center;
+  color: white;
+  padding: 15px;
+}
   
-  .navbar-dark .navbar-brand {
-    color: rgb(230, 238, 245);
-  }
-
-  .navbar-nav > li > a {
-    color: rgb(230, 238, 245) !important;
+.flexbox-item {
+  /* background-color: #24252A; */
+  margin: 0.5%;
+  margin-top: 0;
+  border-radius: 8px;
 }
 
-    .sidenav {
-    padding-top: 30px;
-    background-color: #f1f1f1;
-    height: 100vh;
+.flexbox-item1 {
+  margin-left: 0%;
+  padding: 1%; 
+  border: none; 
+  background-color: #24252A;
+  display: flex;
+  justify-content: center;
 }
 
+.flexbox-item2 {
+  flex: 1;
+  margin-left: 0px;
+}
 
-  .button1 {
-    margin-top: 20px;
-  }
-  
-  /* Set black background color, white text and some padding */
-  footer {
-    background-color: #555;
-    text-align: center;
-    color: white;
-    padding: 15px;
-  }
-  
-  /* On small screens, set height to 'auto' for sidenav and grid */
-  @media screen and (max-width: 767px) {
-    .sidenav {
-      height: auto;
-      padding: 15px;
-    }
-    .row.content {height:auto;} 
-  }
+.flexbox-item1 .search-bar {
+  width: 100%;
+  background: white;
+  display: flex;
+  border-radius: 60px;
+  padding: 7px 15px;
+  /* border: 2px solid orange; */
+}
 
-  /* .table {
-    width: 100%
-  } */
+.flexbox-item1 .search-bar input {
+  background: white;
+  border: none; 
+  outline: none;
+  padding: 5px;
+  font-size: 15px;
+  color: #24252A;
+  width: 110px;
+}
 
-  .match-box {
-    width: auto;
-    height: 115px;
-    border: 3px solid midnightblue;
-    margin: 5px;
-    border-radius: 5px;
-    background-color: rgb(230, 238, 245);
-  }
+.flexbox-item1 .search-bar input::placeholder {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-size: 13px;
+  color: #24252A;
+  font-weight: 500;
+}
 
-  .competition {
+.flexbox-item1 .search-bar button {
+  border: 0;
+  border-radius: 50%;
+  padding: 9px 25px;
+  align-items: center;
+  background-color: rgba(0, 136, 169, 1);
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+.flexbox-item1 .search-bar button:hover {
+  background-color: rgba(0, 136, 169, 0.8);
+}
+
+.all-boxes {
+  width: auto;
+  height: 115px;
+  margin: 5px;
+  margin-right: 0px;
+  border-radius: 20px;  
+  background-color: rgba(90, 150, 185, 0.2);
+  font-family: "Montsterrat", sans-serif;
+  font-weight: 500;
+  color: #24252A;
+  text-decoration: none;
+}
+
+.competition {
+  width: 200px;
+  height: 22px;;
+  padding: 1% 3%;
+  display: flex;
+  align-items: center, Vertical;
+  justify-content: Left;
+  border-radius: 20px;
+  color: #24252A;
+}
+
+.team1 {
+  width: 200px;
+  height: 22px;
+  margin-left: 15px;
+  padding-left: 10px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  border-radius: 20px;
+  background-color: orange;
+  font-size: 13px;
+  justify-content: left;
+}
+.team2 {
+  width: 200px;
+  height: 22px;
+  margin-left: 15px;
+  padding-left: 10px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  border-radius: 20px;
+  background-color: orange;
+  font-size: 13px;
+  text-align: left;
+  justify-content: left;
+}
+
+.time-place {
+  font-size: 10px;
+  margin-left: 20px;
+  margin-top: 8px;
+  width: 70px;
+  float: left;
+}
+
+.time-place2 {
+  font-size: 10px;
+  margin-left: 20px;
+  margin-top: 8px;
+  float: left;
+}
+
+.odds {
+  width: 40%;
+  height: 55%;
+  margin-right: 10px;
+  margin-top: 30px;
+  display: flex;
+  border-radius: 5px;
+  float: right;
+  background: transparent;
+}
+
+.odds-inner {
+  flex: 1; 
+  margin: 5px;
+  background-color: rgba(0, 136, 169, 1);
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  border: 0px;
+}
+
+.odds-inner:hover {
+  background-color: rgba(0, 136, 169, 0.8);
+}
+.bet-flex{
+  display: flex;
+  padding: 10px;
+  font-family: "Montsterrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: none;
+  color: #24252A;
+}
+
+  .odds_wedstrijdformulier{
     width: 200px;
     height: 22px;;
-    margin-left: 14px;
-    margin-top: 7px;
+    padding: 1% 3%;
     display: flex;
-    align-items: center; /* Vertical centering */
-    justify-content: Left; /* Horizontal centering */
-    border-radius: 5px;
-    
+    align-items: center, Vertical;
+    justify-content: Left;
+    border-radius: 20px;
+    color: #24252A;
   }
 
-  .team1 {
-    width: 200px;
-    height: 22px;
-    border: 1px solid midnightblue;
-    margin-left: 10px;
-    margin-top: 5px;
+  .kans {
+    flex: 1;
+    padding: 10px;
+  }
+
+  .bet_confirmation {
+    flex: 1; 
     display: flex;
-    align-items: center; /* Vertical centering */
-    justify-content: center; /* Horizontal centering */
-    border-radius: 5px;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(0, 136, 169, 1);
+    align-items: center; 
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    border: 0px;
+    border-radius: 20px;
+    padding: 10px;
+  }
+.team1-inzet{
+  display: flex;
+  margin-top: 0px;
 }
 
-
-  .team2 {
-    width: 200px;
-    height: 22px;
-    border: 1px solid midnightblue;
-    margin-left: 10px;
-    margin-top: 5px;
+  .inzet {
+    flex: 1;
+    width: 100px;
     display: flex;
-    align-items: center; 
-    justify-content: center; 
-    border-radius: 5px;
-    background-color: rgb(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: 70%;
   }
 
-  .time-place {
-    font-size: 10px;
-    margin-left: 10px;
-    margin-top: 8px;
-    width: 70px;
-    float: left;
-  }
 
-  .time-place2 {
-    font-size: 10px;
-    margin-left: 10px;
-    margin-top: 8px;
-    float: left;
-  }
 
-  .odds {
-    width: 40%;
-    height: 55%;
-    margin-right: 10px;
-    margin-top: 30px;
-    border: 1px solid midnightblue;
-    display: flex;
-    border-radius: 5px;
-    float: right;
-    background-color: rgb(255, 255, 255);
-  }
 
-  .odds-inner {
+
+.odds_history {
+  width: 70%;
+  height: 55%;
+  margin-right: 10px;
+  margin-top: 30px;
+  border: 1px solid midnightblue;
+  display: flex;
+  border-radius: 5px;
+  float: right;
+  background-color: rgb(255, 255, 255);
+}
+
+.stats {
+  width: 70%;
+  height: 55%;
+  margin-right: 20px;
+  margin-top: 30px;
+  display: flex;
+  border-radius: 5px;
+  float: right;
+  background: transparent;
+  text-align: center;
+  font-family: "Montsterrat", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  text-decoration: none;
+}
+  .predicted_winner {
     flex: 1; 
-    border: 1px solid midnightblue;
-    border-radius: 5px;
     margin: 5px;
-    background-color: rgb(230, 238, 245);
+    margin-right: 50px;
+    padding-left: 10%;
+    padding-right: 10%;
+    background-color: rgba(0, 136, 169, 1);
     display: flex;
     align-items: center; 
-    justify-content: center; 
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    border: 0px;
+    color: white;
   }
 
-  .ruimte {
-    margin-top: 30px
+  .placed_bet_odd {
+    flex: 1; 
+    margin: 5px;
+    background-color: rgba(0, 136, 169, 1);
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    border: 0px;
+    color: white;
   }
 
-  .bet {
-    margin-top: 10px
+  .stake {
+    flex: 1; 
+    margin: 5px;
+    background-color: rgba(0, 136, 169, 1);
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    border: 0px;
+    color: white;
+  }
+
+  .payout {
+    flex: 1; 
+    margin: 5px;
+    background-color: rgba(0, 136, 169, 1);
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    border: 0px;
+    color: white;
+  }
+
+  .alert {
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: "Montsterrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+  }
+
+  .alert.warning {
+    color: #24252A;
+    background-color: orange;
+    border-color: #24252A;
+  }
+
+  .background-login {
+  background-image: url('https://sassets.knvb.nl/sites/knvb.nl/files/styles/ls-1366x768/public/field/image/210302PL24988.jpg?itok=XyqEXBpe');
+  background-size: cover; 
+  background-position: center center;
+  height: 402px;
+  }
+
+  .content {
+    margin-top: 200px;
+    padding-top: 20%;
+    text-align: center;
+    justify-content: center;
   }
