@@ -4,6 +4,10 @@ Reclames van betting websites zijn tegenwoordig niet meer weg te denken van de T
 Nadat er door de gebruiker een account wordt aangemaakt, zal deze de mogelijkheid krijgen om te kiezen uit verschillende competities over de hele wereld (zelfs in sommige gevallen op het tweede niveau). Vervolgens worden de aankomende wedstrijden getoont en krijgt de gebruiker de mogelijkheid om in te zetten op een van de twee spelende teams, of een gelijkspel. Nadat er een bedrag wordt ingevoerd en de bet wordt bevestigd, wordt deze opgeslagen in 'mijn bets', waar alle bets overzichtelijk worden weergegeven. In de uren nadat de voetbalwedstrijd is gespeeld, wordt bij inloggen van de wedsite het gewonnen geld uitgekeerd, en wordt de bet verplaatst naar de history. Hier vind de gebruiker een overzicht van alle geplaatste bets, en kan eenvoudig worden teruggevonden of hij/zij de bet heeft gewonnen of verloren, samen met andere informatie over de desbetreffende bet. Ten slotte kan de gebruiker een ranking vinden van alle accounts op basis van de belance. Wanneer een gebruiker veel goed gokt, zal deze hoog in de ranking staan ten opzichte van gebruikers met minder goed geplaatse bets.
 
 ![Log in page](image.png)
+<img src="image.png" alt="Log in page" style="width: 50%;">
+Log in page van AMABET
+
+
 
 ## Sketch
 Middels de volgende sketches zal ik een indruk geven van hoe mijn pagina's er uit zullen komen te zien en wat de functionaliteiten zijn.
