@@ -14,7 +14,6 @@ app = Flask(__name__)
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
 
-
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 db.init_app(app)
 
@@ -180,7 +179,7 @@ def wedstrijdformulier2(index):
 @app.route("/matches", methods=["GET"])
 @login_required
 def matches():
-    return render_template("matches.html")
+    return redirect("/")
     
 @app.route("/bets", methods=["GET"])
 @login_required

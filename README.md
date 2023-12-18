@@ -3,62 +3,80 @@ Reclames van betting websites zijn tegenwoordig niet meer weg te denken van de T
 
 Nadat er door de gebruiker een account wordt aangemaakt, zal deze de mogelijkheid krijgen om te kiezen uit verschillende competities over de hele wereld (zelfs in sommige gevallen op het tweede niveau). Vervolgens worden de aankomende wedstrijden getoont en krijgt de gebruiker de mogelijkheid om in te zetten op een van de twee spelende teams, of een gelijkspel. Nadat er een bedrag wordt ingevoerd en de bet wordt bevestigd, wordt deze opgeslagen in 'mijn bets', waar alle bets overzichtelijk worden weergegeven. In de uren nadat de voetbalwedstrijd is gespeeld, wordt bij inloggen van de wedsite het gewonnen geld uitgekeerd, en wordt de bet verplaatst naar de history. Hier vind de gebruiker een overzicht van alle geplaatste bets, en kan eenvoudig worden teruggevonden of hij/zij de bet heeft gewonnen of verloren, samen met andere informatie over de desbetreffende bet. Ten slotte kan de gebruiker een ranking vinden van alle accounts op basis van de belance. Wanneer een gebruiker veel goed gokt, zal deze hoog in de ranking staan ten opzichte van gebruikers met minder goed geplaatse bets.
 
-![Log in page](image.png)
-<img src="image.png" alt="Log in page" style="width: 50%;">
+## Webpages
+<img src="image.png" alt="Log in page AMABET" style="width: 50%;">
 Log in page van AMABET
 
+<img src="image-1.png" alt="Home page AMABET" style="width: 50%;">
+Home page amabet
+
+<img src="image-2.png" alt="Home page AMABET" style="width: 50%;">
+Wedstrijdformulier
+
+<img src="image-3.png" alt="Home page AMABET" style="width: 50%;">
+Mijn bets page
+
+<!-- <img src="image-1.png" alt="Home page AMABET" style="width: 50%;"> 
+Ranking page -->
+
+<img src="image-4.png" alt="Home page AMABET" style="width: 50%;">
+History page
+
+## Aan de slag (Getting Started)
+
+### Requirements
+Deze code is geschreven in Python3.10.12. In requirements.txt staan alle benodigde packages om de code succesvol te draaien. Deze zijn gemakkelijk te installeren via pip dmv. de volgende instructie:
+
+```
+pip install -r requirements.txt
+```
+
+### Structuur
+In de folder static kan de css stylesheet worden gevonden. Dit is, naast bootstrap, de enige stylesheet in de repository.
+
+In de folder templates, kunnen de html files worden gevonden, deze zorgen samen met de stylesheets voor de indeling van de pagina's.
+
+In de folder images, kunnen de afbeeldingen worden teruggevonden die hierboven zijn weergegeven.
 
 
-## Sketch
-Middels de volgende sketches zal ik een indruk geven van hoe mijn pagina's er uit zullen komen te zien en wat de functionaliteiten zijn.
+In het restant van de repository kunnen app.py, helpers.py en de requirements.txt worden teruggevonden. Deze files zijn nodig om de webpagina draaiende te laten krijgen. Daarnaast staan de nodige md files ook in de repository.
 
-### Log in
-![Sketch Log in](<14-11-2023 10_58 Microsoft Lens 3.jpeg>)
-Dit is een eenvoudige schets van mijn login pagina die de gebruiker om een gebruikersnaam en wachtwoord vraag. Wanneer de gebruiker nog geen account heeft, kan een account worden aangemaakt met de register knop. Eventueel zou deze pagina kunnen worden opgeleukt door een de gebruikers met de hoogste score te tonen. Op deze manier wordt de gebruiker extra gestimuleerd om een account aan te maken.
+### Test (Testing)
 
-### Register
-![Sketch Register](<14-11-2023 10_58 Microsoft Lens(1) 2.jpeg>)
-De register pagina werkt net als de register pagina op de ‘finance’ website. Hier niet veel bijzonderheden.
+Om de code te draaien is het eerst nodig om een database URL te exporteren: 
 
-### Index
-![Sketch Index](<14-11-2023 10_58 Microsoft Lens(2) 1.jpeg>)
-Deze pagina zal fungeren als de ‘main page’ van mijn webapplicatie. Vanuit deze pagina heb je verschillende mogelijkheden.
+```
+export DATABASE_URL="postgresql://<gebruikersnaam>:<wachtwoord>@localhost/amabet"
+```
 
-Bovenaan de pagina zal een navigatie bar worden getoond waarmee het mogelijk zal zijn om de verschillende pagina’s van de website op een simpele manier te vinden. Het kopje 'wedstrijden' zal hetzelfde tonen als wanneer er op 'AmaBet' Wordt gedrukt. Dit is het volgende
+Vervolgens moeten de tabellen in de tabellen in de database worden aangemaakt. Dit kan worden gedaan door het bestand create.py te runnen.
 
-Dit deze zullen een overzicht geven van alle wedstrijden in de geselecteerde competitie voor het eerstvolgende weekend. Daarnaast zal er per wedstrijd 3 buttons worden getoond waarmee kan worden ingezet op 1. Winst team 1, 2. Gelijkspel, 3. Winst team 2. Wanneer een van deze opties wordt aangeklikt zal er een pop-up scherm worden getoond waarin ingevuld kan worden hoeveel punten je op de wedstrijd wilt inzetten, en je je bet kan bevestigen. De odds van de bets zullen worden gegenereerd middels een functie. Deze zal worden gebaseerd op de stand van de 2 ploegen. In de praktijk zorgt dit er voor dat je relatief weinig punten verdient wanneer je een goede voorspelling maakt voor een team dat hoog in de ranglijst staat, en je relatief veel punten verdient bij een goede voorspelling voor een team dat laag in de ranglijst staat. Deze functie zal ik zelf bedenken.
+```
+python3 create.py
+```
 
-![Sketch Pop up](<14-11-2023 12_49 Microsoft Lens 2.jpeg>)
+Ten slotte moet de data uit de competities worden geimporteerd in de database. Dit kan worden gedaan door het bestand import_competitions.py te runnen.
 
-Daarnaast is het mogelijk om middels een zoek functie je eigen competitie op te zoeken en toe te voegen aan je favorieten. Wanner dat is gedaan zullen deze als button onder de zoek functie blijven staan. Deze buttons kunnen vervolgens worden gebruikt om naar de wedstrijden van de desbetreffende competitie te navigeren. Dit deel van de pagina zal op elke pagina blijven staan. Om deze reden kan dit deel van de pagina aan de lay-out pagina worden toegevoegd.
+```
+python3 import_competitions.py
+```
 
-### Mijn bets
-Deze pagina zal (1) een overzicht geven van alle geplaatste bets met de bijbehorende datum. Daarnaast zal het een waarschuwing geven tot wanneer je de bet kunt aanpassen (deadline = dag voor desbetreffende wedstrijd 23:59)(staat niet in de schets). En zal (2) een overzicht geven van de punten die behaald zijn uit de bets van afgelopen weekend. Deze zogeheten ‘closed bets’ zullen info geven over de gezette bet, en hoeveel punten er verdiend/verloren zijn per wedstrijd.
+Wanneer dit is gedaan kan de webpage op de volgende manier worden gerunt:
+```
+flask run --debug
+```
 
-### Ranking
-![Sketch mijn bets en ranking](<14-11-2023 12_49 Microsoft Lens(1) 1 (1).jpeg>)
-Deze pagina zal een overzicht geven van de TOP 30 accounts gesorteerd op meeste punten. Op deze manier kan je zien welke gebruikers de hoogste scores hebben en daarmee de beste voorspellers zijn.
+## Auteurs (Authors)
 
-## Features
-Nodige features:
-1. Login functie
-2. Register functie
-3. Zoekbalk voor teams & competities
-4. nav-bar voor verschillende pagina's 
-5. Mogelijkheid om bets te plaatsen op real life voetbalwedstrijden
-6. Overzicht van geplaatste bets
-7. Mogelijkheid om geplaatste bets te veranderen voor de desbetreffende speeldag.
-8. History van geplaatste bets
-9. Ranglijst met alle gebruikers (beste gebruikers bovenaan)
+Ron Lakeman
 
-Extra features:
-1. pagina met grafiek van scoreverloop
-2. Mogelijkheid om alternatieve bets te zetten (bijv. both teams to score of multiplier)
-3. Pagina met aantal betting statistieken
+## Dankwoord (Acknowledgments)
 
-## Requirements
-Om mijn website te laten werken zoals behoren, heb ik een API nodig die beschikbaar is gesteld door de KNVB via de website: https://api.knvbdataservice.nl/.
+* StackOverflow
+* Assitenten minor programmeren van de UvA
+* [Skillthrive](https://www.youtube.com/watch?v=PwWHL3RyQgk&t=670sl) - Voor de code voor het stylen van de nav-bar.
+* [GreatStack](https://www.youtube.com/watch?v=9hnJsNIBq1g&t=578s) - Voor de code voor het stylen van de searcg-bar.
+* [Amabet.bet](https://www.amabet.bet/home?sport=Soccer&live=Tennis) - Voor overname van het logo
+* [KNVB](https://www.knvb.nl/nieuws/themas/veiligheid/68237/topoverleg-over-aanpak-gastvrij-en-veilig-voetbal) - voor de achtergrond van de login & register pagina.
 
-Daarnaast heb ik verschillende libary's nodig voor mijn website. Zo wil ik sqlalchemy gebruiken voor het scrapen van bepaalde data, en daarnaast wil ik bootstrap gebruiken voor bepaalde functionaliteiten op mijn website (noem een nav. bar).
 
-Om eerlijk te zijn vind ik het lastig om precies aan te geven welke libary's ik waarvoor wil gebruiken. Daarnaast moet ik mij ook verder verdiepen in hoe de ik de API kan gebruiken om bepaalde data te gebruiken. Echter ben ik er wel van overtuigd dat het op korte termijn moet lukken om dit uit te zoeken en ik aan de gang kan met het project.

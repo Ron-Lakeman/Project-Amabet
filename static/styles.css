@@ -334,7 +334,8 @@ footer {
   font-size: 12px;
   text-decoration: none;
 }
-  .predicted_winner {
+  
+.predicted_winner {
     flex: 1; 
     margin: 5px;
     margin-right: 50px;
