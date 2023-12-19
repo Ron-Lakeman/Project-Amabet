@@ -32,7 +32,8 @@ History page:
 ## Screenrecording
 Screenrecording van mijn Project waarin ik de functionaliteit van mijn webpagina Amabet zal demonstreren.
 
-[Link naar screenrecording]("https://video.uva.nl/media/Minor%20Programmeren%3A%20Demonstratie%20webapplicatie%20Amabet/0_5htwjcyj")
+[Link naar screenrecording](https://video.uva.nl/media/Minor%20Programmeren%3A%20Demonstratie%20webapplicatie%20Amabet/0_5htwjcyj)
+
 
 
 ## Aan de slag 
