@@ -46,16 +46,21 @@ def index():
         bet_time_composed_time = datetime.strptime(bet_time_composed_str, "%Y-%m-%d %H:%M:%S")
         bet_time_composed_finished = bet_time_composed_time + timedelta(minutes=240)
         
-        # Request live-data if match has finished within 4 hours of current time
-        if bet_time_composed_finished > current_date_time > bet_time_composed_time:
-            results = get_live(bet.competition_id)
-        # Request history data if match has finished more than 4 hours ago
+        # Check per bet whether the game has already started
+        if current_date_time > bet_time_composed_time:
+            # Request live-data if match has finished within 4 hours of current time
+            if bet_time_composed_finished > current_date_time > bet_time_composed_time:
+                results = get_live(bet.competition_id)
+            # Request history data if match has finished more than 4 hours ago
+            else:
+                print("bet zou in history moeten staan")
+                results = get_results(bet.competition_id)
+        # if the game has not yet started no requests are made
         else:
-            print("bet zou in history moeten staan")
-            results = get_results(bet.competition_id)
+            results = None
 
         # Check whether match can be found in the data requested by API
-        if bet.match_id in results:
+        if results != None and bet.match_id in results:
             # If bet is won, create Bet_history object where status is won and balance change is positive
             if bet.winner == results[bet.match_id]['outcome']:
                 user.balance += bet.possible_payout
@@ -73,7 +78,19 @@ def index():
                 time= bet.time
                 team1= bet.team1
                 team2= bet.team2
-                history = Bet_history(match_id = match_id, status=status, competition_id=competition_id, predicted_winner=predicted_winner, predicted_winner_team=predicted_winner_team, odds=odds, stake=stake, balance_change=balance_change, user_id=user_id, team1=team1, date=date, team2=team2, time=time)
+                history = Bet_history(match_id = match_id, 
+                                      status=status, 
+                                      competition_id=competition_id, 
+                                      predicted_winner=predicted_winner, 
+                                      predicted_winner_team=predicted_winner_team, 
+                                      odds=odds, 
+                                      stake=stake, 
+                                      balance_change=balance_change, 
+                                      user_id=user_id, 
+                                      team1=team1, 
+                                      date=date, 
+                                      team2=team2, 
+                                      time=time)
                 db.session.add(history)
                 db.session.commit()
             # If bet is lost, create Bet_history object where status is lost and balance change is unchanged
@@ -92,7 +109,21 @@ def index():
                 time= bet.time
                 team1= bet.team1
                 team2= bet.team2
-                history = Bet_history(match_id = match_id, status=status, competition_id=competition_id, predicted_winner=predicted_winner, actual_winner=actual_winner, predicted_winner_team=predicted_winner_team, odds=odds, stake=stake, balance_change=balance_change, user_id=user_id, team1=team1, date=date, team2=team2, time=time)
+                history = Bet_history(match_id = match_id, 
+                                      status=status, 
+                                      competition_id=competition_id, 
+                                      predicted_winner=predicted_winner, 
+                                      actual_winner=actual_winner, 
+                                      predicted_winner_team=predicted_winner_team, 
+                                      odds=odds, 
+                                      stake=stake, 
+                                      balance_change=balance_change, 
+                                      user_id=user_id, 
+                                      team1=team1, 
+                                      date=date, 
+                                      team2=team2, 
+                                      time=time)
+                
                 db.session.add(history)
                 db.session.commit()
             # Delete bet object
@@ -119,7 +150,11 @@ def index():
                 live_score_id = competition.live_score_id
                 # request data based on competition id
                 match_info = calculate_odds(live_score_id)
-                return render_template("index.html", competition=competition.name, match_info=match_info, username=user.username, user_balance=user_balance)
+                return render_template("index.html", competition=competition.name, 
+                                                    match_info=match_info, 
+                                                    username=user.username, 
+                                                    user_balance=user_balance)
+            
             return render_template("index.html", user_balance=user_balance)
         else:
            return render_template("index.html", user_balance=user_balance)     
@@ -127,7 +162,9 @@ def index():
         # Matches from dutch footbal competition are shown by default
         live_score_id = 196
         match_info = calculate_odds(live_score_id)
-        return render_template("index.html", competition='Eredivisie', match_info=match_info, username=user.username, user_balance=user_balance)
+        return render_template("index.html", competition='Eredivisie', 
+                               match_info=match_info, username=user.username, 
+                               user_balance=user_balance)
 
     
 @app.route("/wedstrijdformulier/<int:index>", methods=["GET", "POST"])
@@ -159,17 +196,27 @@ def wedstrijdformulier(index):
             odds = None
             winner_string = None
             winner = None
-        return render_template("wedstrijdformulier.html", index=index, match_info=match_info[index], odds=odds, winner_team=winner_team, winner_string=winner_string, winner=winner, username=user.username, user_balance = user_balance)
+        return render_template("wedstrijdformulier.html", index=index, 
+                                                        match_info=match_info[index], 
+                                                        odds=odds, 
+                                                        winner_team=winner_team, 
+                                                        winner_string=winner_string, 
+                                                        winner=winner, 
+                                                        username=user.username, 
+                                                        user_balance = user_balance)
     
 @app.route("/wedstrijdformulier/bet/<int:index>", methods=["GET", "POST"])
 @login_required
 def wedstrijdformulier2(index):
+    # Create a bet object for the chosen bet
     if request.method == "POST":
         user_id = session["user_id"]
         user = User.query.filter_by(id=user_id).first()
         bets = Bet.query.filter_by(user_id=user.id).all()
+        # Set variables for betting object
         match_id = request.form.get('match_id')
         for bet in bets:
+            # Make sure it is not possible to bet on the same match twice
             if bet.match_id == match_id:
                 flash("Je hebt al een bet gezet op deze wedstrijd, je kunt niet meerdere bets zetten op één wedstrijd!", "warning")
                 return redirect("/")
@@ -183,11 +230,22 @@ def wedstrijdformulier2(index):
         stake = request.form.get('inzet')
         potential_winning = request.form.get('potential_winning')
         user_id = session["user_id"]
+        #Create bet object
+        bet = Bet(match_id = match_id, 
+                  competition_id=live_score_id, 
+                  winner=winner, winner_team=winner_team, 
+                  odds=odds, 
+                  stake=stake, 
+                  possible_payout=potential_winning, 
+                  user_id=user_id, 
+                  team1=team1, 
+                  date=date, 
+                  team2=team2, 
+                  time=time)
         
-        bet = Bet(match_id = match_id, competition_id=live_score_id, winner=winner, winner_team=winner_team, odds=odds, stake=stake, possible_payout=potential_winning, user_id=user_id, team1=team1, date=date, team2=team2, time=time)
         db.session.add(bet)
         db.session.commit()
-
+        # Subtract stake from user balance
         user = User.query.filter_by(id=user_id).first()
         user.balance = int(user.balance) - int(stake)
         db.session.commit()
@@ -197,20 +255,23 @@ def wedstrijdformulier2(index):
 @app.route("/matches", methods=["GET"])
 @login_required
 def matches():
+    # Matches has same functionality as the home page
     return redirect("/")
-    
+
+
 @app.route("/bets", methods=["GET"])
 @login_required
 def bets():
-    # print(f"match_info = {match_info}")
+    # Get username and user balance for navbar
     user_id = session["user_id"]
     user = User.query.filter_by(id=user_id).first()
     db.session.commit()
     user_balance = int(user.balance)
 
+    # Create empty bets dictionary
     bets_dict = {}
     bets = Bet.query.filter_by(user_id=user.id).all()
-
+    # Set variables for all bets that have been made
     for index, bet in enumerate(bets):
         competition = Competition.query.filter_by(live_score_id=bet.competition_id).first()
         competition = competition.name
@@ -224,25 +285,43 @@ def bets():
         time = bet.time
         team1 = bet.team1
         team2 = bet.team2
-        bets_dict[index] = {'competition': competition, 'match_id': match_id, 'winner': winner, 'winner_team': winner_team, 'odds': odds, 'stake': stake, 'possible_payout': possible_payout, 'date': date, 'time': time, 'team1': team1, 'team2': team2}
+        # Save all varibales in a dictionary to send that the the html page
+        bets_dict[index] = {'competition': competition, 
+                            'match_id': match_id, 
+                            'winner': winner, 
+                            'winner_team': winner_team, 
+                            'odds': odds, 
+                            'stake': stake, 
+                            'possible_payout': possible_payout, 
+                            'date': date, 
+                            'time': time, 
+                            'team1': team1, 
+                            'team2': team2}
     return render_template("bets.html", username=user.username, user_balance=user_balance, bets=bets_dict)
 
 @app.route("/ranking", methods=["GET"])
 @login_required
 def ranking():
+    # Get username and user balance for navbar
     user_id = session["user_id"]
     user = User.query.filter_by(id=user_id).first()
     db.session.commit()
     user_balance = int(user.balance)
 
+    # Query all users and order by balance
     all_users = User.query.order_by(desc(User.balance)).all()
+    #Create empty user dictionary
     user_dict = {}
     rank = 1
+    # Set variables for all users that have an account
     for index, user in enumerate(all_users):
         rank = rank
         username = user.username
         user_balance_dict = user.balance
-        user_dict[index] = {'rank': rank, 'username': username, 'user_balance': user_balance_dict}
+        # Save all varibales in a dictionary to send that the the html page
+        user_dict[index] = {'rank': rank, 
+                            'username': username, 
+                            'user_balance': user_balance_dict}
         rank += 1
     user = User.query.filter_by(id=user_id).first()
     return render_template("ranking.html", username=user.username, user_balance=user_balance, users=user_dict)
@@ -250,14 +329,17 @@ def ranking():
 @app.route("/history", methods=["GET"])
 @login_required
 def history():
+    # Get username and user balance for navbar
     user_id = session["user_id"]
     user = User.query.filter_by(id=user_id).first()
     db.session.commit()
     user_balance = int(user.balance)
 
+    # Create empty history dictionary
     bet_history_dict = {}
     bet_history = Bet_history.query.filter_by(user_id=user.id).all()
 
+    # Set variables for all bets in the bet history
     for index, bet in enumerate(bet_history):
         competition = Competition.query.filter_by(live_score_id=bet.competition_id).first()
         competition = competition.name
@@ -273,8 +355,20 @@ def history():
         time = bet.time
         team1 = bet.team1
         team2 = bet.team2
-        bet_history_dict[index] = {'competition': competition, 'status': status, 'match_id': match_id, 'predicted_winner': predicted_winner, 'actual_winner': actual_winner, 'predicted_winner_team': predicted_winner_team, 'odds': odds, 'stake': stake, 'balance_change': balance_change, 'date': date, 'time': time, 'team1': team1, 'team2': team2}
-        print(bet_history_dict)
+        # Save all varibales in a dictionary to send that the the html page
+        bet_history_dict[index] = {'competition': competition, 
+                                   'status': status, 
+                                   'match_id': match_id, 
+                                   'predicted_winner': predicted_winner, 
+                                   'actual_winner': actual_winner, 
+                                   'predicted_winner_team': predicted_winner_team, 
+                                   'odds': odds, 
+                                   'stake': stake, 
+                                   'balance_change': balance_change, 
+                                   'date': date, 
+                                   'time': time, 
+                                   'team1': team1, 
+                                   'team2': team2}
     
     return render_template("history.html", username=user.username, user_balance=user_balance, bet_history=bet_history_dict)
 
@@ -293,13 +387,9 @@ def login():
             return "Apology, 400: must provide username"
         elif not password:
             return "Apology, 400: must provide password"
-        
         hash = generate_password_hash(password)
-        # print(hash)
         user = User.query.filter_by(username=username).first()
-        # print(user)
         user_hash = user.hash
-        # print(user_hash)
         user_id = user.id
         
         if User.query.filter_by(username=username).first():
@@ -321,11 +411,10 @@ def register():
         username = request.form.get("username")
         password = request.form.get("password")
         confirmed_password = request.form.get("confirmation")
-        
-        # print(User.query.filter_by(username=username).first())
         if User.query.filter_by(username=username).first():
             return "Apology, 400: username already exists"
         
+        # Give error when the forms have not been submitted in the right way
         if not username:
             return "Apology, 400: must provide username"
         elif not password:

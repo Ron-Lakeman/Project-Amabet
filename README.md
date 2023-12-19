@@ -1,7 +1,9 @@
 # AMABET by Ron Lakeman
 Reclames van betting websites zijn tegenwoordig niet meer weg te denken van de TV, of je mobiele device. Dit heeft als resultaat dat de populariteit van gokwebsites steeds maar blijft stijgen. Dit online gokken is een zeer controversieel, maar tegelijkertijd ook interessant fenomeen. Deze webapplicatie zal daarom de mogelijkheid bieden om aan de hand van nepgeld in te kunnen zetten op live voetbalwedstrijden.
 
-Nadat er door de gebruiker een account wordt aangemaakt, zal deze de mogelijkheid krijgen om te kiezen uit verschillende competities over de hele wereld (zelfs in sommige gevallen op het tweede niveau). Vervolgens worden de aankomende wedstrijden getoont en krijgt de gebruiker de mogelijkheid om in te zetten op een van de twee spelende teams, of een gelijkspel. Nadat er een bedrag wordt ingevoerd en de bet wordt bevestigd, wordt deze opgeslagen in 'mijn bets', waar alle bets overzichtelijk worden weergegeven. In de uren nadat de voetbalwedstrijd is gespeeld, wordt bij inloggen van de wedsite het gewonnen geld uitgekeerd, en wordt de bet verplaatst naar de history. Hier vind de gebruiker een overzicht van alle geplaatste bets, en kan eenvoudig worden teruggevonden of hij/zij de bet heeft gewonnen of verloren, samen met andere informatie over de desbetreffende bet. Ten slotte kan de gebruiker een ranking vinden van alle accounts op basis van de belance. Wanneer een gebruiker veel goed gokt, zal deze hoog in de ranking staan ten opzichte van gebruikers met minder goed geplaatse bets.
+Nadat er door de gebruiker een account wordt aangemaakt, zal deze de mogelijkheid krijgen om te kiezen uit verschillende competities over de hele wereld (zelfs in sommige gevallen op het tweede niveau). Vervolgens worden de aankomende wedstrijden getoont en krijgt de gebruiker de mogelijkheid om in te zetten op een van de twee spelende teams, of een gelijkspel. Nadat er een bedrag wordt ingevoerd en de bet wordt bevestigd, wordt deze opgeslagen in 'mijn bets', waar alle bets overzichtelijk worden weergegeven. 
+
+In de uren nadat de voetbalwedstrijd is gespeeld, wordt bij inloggen van de wedsite het gewonnen geld uitgekeerd, en wordt de bet verplaatst naar de history. Hier vind de gebruiker een overzicht van alle geplaatste bets, en kan eenvoudig worden teruggevonden of hij/zij de bet heeft gewonnen of verloren, samen met andere informatie over de desbetreffende bet. Ten slotte kan de gebruiker een ranking vinden van alle accounts op basis van de belance. Wanneer een gebruiker veel goed gokt, zal deze hoog in de ranking staan ten opzichte van gebruikers met minder goed geplaatse bets.
 
 ## Webpaginas
 Log in page van AMABET:
@@ -87,8 +89,8 @@ Ron Lakeman
 * StackOverflow
 * Assitenten minor programmeren van de UvA
 * [Skillthrive](https://www.youtube.com/watch?v=PwWHL3RyQgk&t=670sl) - Voor de code voor het stylen van de nav-bar.
-* [GreatStack](https://www.youtube.com/watch?v=9hnJsNIBq1g&t=578s) - Voor de code voor het stylen van de searcg-bar.
-* [Amabet.bet](https://www.amabet.bet/home?sport=Soccer&live=Tennis) - Voor overname van het logo
+* [GreatStack](https://www.youtube.com/watch?v=9hnJsNIBq1g&t=578s) - Voor de code voor het stylen van de search-bar.
+* [Amabet.bet](https://www.amabet.bet/home?sport=Soccer&live=Tennis) - Voor gebruik van het logo
 * [KNVB](https://www.knvb.nl/nieuws/themas/veiligheid/68237/topoverleg-over-aanpak-gastvrij-en-veilig-voetbal) - voor de achtergrond van de login & register pagina.
 * [Maarten-vd-Sande](https://github.com/Maarten-vd-Sande/voorbeeldRepo) - voor een voorbeeld van een juiste repository
 

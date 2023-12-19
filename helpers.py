@@ -26,7 +26,7 @@ def login_required(f):
     return decorated_function
 
 def get_ranking(id):
-    res = requests.get(f" https://livescore-api.com/api-client/leagues/table.json?competition_id={id}&key=GNbdgm8Y4WMM0rXE&secret=EmyxlamXomfGzDhfrstIPCGUysGzUDdy", verify=False)
+    res = requests.get(f" https://livescore-api.com/api-client/leagues/table.json?competition_id={id}&key=GNbdgm8Y4WMM0rXE&secret=EmyxlamXomfGzDhfrstIPCGUysGzUDdy")
     ranking_data = res.json()
     ranking = ranking_data['data']['table']
     
@@ -50,7 +50,7 @@ def get_ranking(id):
 def get_fixtures(id):
     
     match_info = {}
-    res2 = requests.get(f"https://livescore-api.com/api-client/fixtures/matches.json?competition_id={id}&key=GNbdgm8Y4WMM0rXE&secret=EmyxlamXomfGzDhfrstIPCGUysGzUDdy", verify=False)
+    res2 = requests.get(f"https://livescore-api.com/api-client/fixtures/matches.json?competition_id={id}&key=GNbdgm8Y4WMM0rXE&secret=EmyxlamXomfGzDhfrstIPCGUysGzUDdy")
     fixtures_data = res2.json()
     fixtures = fixtures_data['data']['fixtures']
 
@@ -107,10 +107,10 @@ def calculate_odds(id):
 
 
 def get_results(id):
-    res = requests.get(f"https://livescore-api.com/api-client/scores/history.json?competition_id={id}&key=GNbdgm8Y4WMM0rXE&page=&secret=EmyxlamXomfGzDhfrstIPCGUysGzUDdy", verify=False)
+    res = requests.get(f"https://livescore-api.com/api-client/scores/history.json?competition_id={id}&key=GNbdgm8Y4WMM0rXE&page=&secret=EmyxlamXomfGzDhfrstIPCGUysGzUDdy")
     results_data_last_page = res.json()
     last_page = (results_data_last_page['data']['total_pages'])
-    res2 = requests.get(f"https://livescore-api.com/api-client/scores/history.json?competition_id={id}&key=GNbdgm8Y4WMM0rXE&page=&page={last_page}&secret=EmyxlamXomfGzDhfrstIPCGUysGzUDdy", verify=False)
+    res2 = requests.get(f"https://livescore-api.com/api-client/scores/history.json?competition_id={id}&key=GNbdgm8Y4WMM0rXE&page=&page={last_page}&secret=EmyxlamXomfGzDhfrstIPCGUysGzUDdy")
     results_data_last_page = res2.json()
     results = results_data_last_page['data']['match']
     
@@ -129,7 +129,7 @@ def get_results(id):
     return(results_info)
 
 def get_live(id): 
-    res = requests.get(f"https://livescore-api.com/api-client/scores/live.json?competition_id={id}&key=GNbdgm8Y4WMM0rXE&page=&secret=EmyxlamXomfGzDhfrstIPCGUysGzUDdy", verify=False)
+    res = requests.get(f"https://livescore-api.com/api-client/scores/live.json?competition_id={id}&key=GNbdgm8Y4WMM0rXE&page=&secret=EmyxlamXomfGzDhfrstIPCGUysGzUDdy")
     live_data = res.json()
     live_dat = live_data['data']['match']
 
