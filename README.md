@@ -3,31 +3,39 @@ Reclames van betting websites zijn tegenwoordig niet meer weg te denken van de T
 
 Nadat er door de gebruiker een account wordt aangemaakt, zal deze de mogelijkheid krijgen om te kiezen uit verschillende competities over de hele wereld (zelfs in sommige gevallen op het tweede niveau). Vervolgens worden de aankomende wedstrijden getoont en krijgt de gebruiker de mogelijkheid om in te zetten op een van de twee spelende teams, of een gelijkspel. Nadat er een bedrag wordt ingevoerd en de bet wordt bevestigd, wordt deze opgeslagen in 'mijn bets', waar alle bets overzichtelijk worden weergegeven. In de uren nadat de voetbalwedstrijd is gespeeld, wordt bij inloggen van de wedsite het gewonnen geld uitgekeerd, en wordt de bet verplaatst naar de history. Hier vind de gebruiker een overzicht van alle geplaatste bets, en kan eenvoudig worden teruggevonden of hij/zij de bet heeft gewonnen of verloren, samen met andere informatie over de desbetreffende bet. Ten slotte kan de gebruiker een ranking vinden van alle accounts op basis van de belance. Wanneer een gebruiker veel goed gokt, zal deze hoog in de ranking staan ten opzichte van gebruikers met minder goed geplaatse bets.
 
-## Webpages
-Log in page van AMABET
+## Webpaginas
+Log in page van AMABET:
 
 <img src="images/image.png" alt="Log in page AMABET" style="width: 50%;">
 
-Home page amabet
+Home page amabet:
 
 <img src="images/image-1.png" alt="Home page AMABET" style="width: 50%;">
 
-Wedstrijdformulier
+Wedstrijdformulier:
 
 <img src="images/image-2.png" alt="Home page AMABET" style="width: 50%;">
 
-Mijn bets page
+Mijn bets page:
 
 <img src="images/image-3.png" alt="Home page AMABET" style="width: 50%;">
 
-Ranking page
+Ranking page:
 
 <img src="images/image-5.png" alt="Home page AMABET" style="width: 50%;">
 
-History page
+History page:
+
 <img src="images/image-4.png" alt="Home page AMABET" style="width: 50%;">
 
-## Aan de slag (Getting Started)
+
+## Screenrecording
+Screenrecording van mijn Project waarin ik de functionaliteit van mijn webpagina Amabet zal demonstreren.
+
+[Link naar screenrecording]("https://video.uva.nl/media/Minor%20Programmeren%3A%20Demonstratie%20webapplicatie%20Amabet/0_5htwjcyj")
+
+
+## Aan de slag 
 
 ### Requirements
 Deze code is geschreven in Python3.10.12. In requirements.txt staan alle benodigde packages om de code succesvol te draaien. Deze zijn gemakkelijk te installeren via pip dmv. de volgende instructie:
@@ -46,7 +54,7 @@ In de folder images, kunnen de afbeeldingen worden teruggevonden die hierboven z
 
 In het restant van de repository kunnen app.py, helpers.py en de requirements.txt worden teruggevonden. Deze files zijn nodig om de webpagina draaiende te laten krijgen. Daarnaast staan de nodige md files ook in de repository.
 
-### Test (Testing)
+### Testen van de code
 
 Om de code te draaien is het eerst nodig om een database URL te exporteren: 
 
@@ -71,11 +79,10 @@ Wanneer dit is gedaan kan de webpage op de volgende manier worden gerunt:
 flask run --debug
 ```
 
-
-## Auteurs (Authors)
+## Auteurs 
 Ron Lakeman
 
-## Dankwoord (Acknowledgments)
+## Dankwoord 
 * StackOverflow
 * Assitenten minor programmeren van de UvA
 * [Skillthrive](https://www.youtube.com/watch?v=PwWHL3RyQgk&t=670sl) - Voor de code voor het stylen van de nav-bar.
